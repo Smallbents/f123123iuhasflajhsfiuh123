@@ -293,7 +293,7 @@ Mouse.KeyDown:Connect(function(key)
             waitBool = true
         end
         if key == "p" then
-            local teleportToPlace = Service.TeleportService
+            local teleportToPlace = Services.TeleportService
 		        teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
         end
         if key == "r" then
