@@ -55,15 +55,10 @@ local Anims = {
     Hit6 = "5776243290",
   
     Idle = "8193912867",
-    Idle_Speed = 1,
     Run = "6998116360",
-    Run_Speed = 1,
     Walk = "6373899601",
-    Walk_Speed = 1,
     Jump = "8100288787",
-    Jump_Speed = 1,
     Block = "7813916666",
-    Block_Speed = 1,
 } _G.AnimSettings = Anims
 if Face then
     Face:remove()
@@ -73,13 +68,9 @@ Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
 Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
 Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxassetid://"..Anims.Run
-Backpack:WaitForChild("Main").CharaMoves.Animations.Run:AdjustSpeed(Anims.Run_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
-Backpack:WaitForChild("Main").CharaMoves.Animations.Walk:AdjustSpeed(Anims.Walk_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Jump.AnimationId = "rbxassetid://"..Anims.Jump
-Backpack:WaitForChild("Main").CharaMoves.Animations.Jump:AdjustSpeed(Anims.Jump_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Block.AnimationId = "rbxassetid://"..Anims.Block
-Backpack:WaitForChild("Main").CharaMoves.Animations.Block:AdjustSpeed(Anims.Block_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Block.Looped = True
 wait(1)
 -- BackPack Duplication
