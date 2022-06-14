@@ -38,6 +38,13 @@ local CCS = {
     HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"]
 }; _G.ClickComboSettings = CCS
 
+local Damages = {
+    Thwack = {10,"Knockback",40,"HeavyHitEffect", "ShieldBreak", "Knockback1"},
+    Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
+    Barrage = {5,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
+    BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
+} _G.AttackSettings = Damages
+
 local Anims = {
     Hit1 = "5776230796",
     Hit2 = "5776233108",
@@ -51,13 +58,6 @@ local Anims = {
     Jump = "8100288787",
     Block = "7813916666",
 } _G.AnimSettings = Anims
-
-local Damages = {
-    Thwack = {10,"Knockback",40,"HeavyHitEffect", "ShieldBreak", "Knockback1"},
-    Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
-    Barrage = {5,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
-    BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
-} _G.AttackSettings = Damages
 
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
 Character.Head.face:remove()
