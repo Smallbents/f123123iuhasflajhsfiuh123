@@ -132,6 +132,12 @@ TestAnim = {
     Speed = 1
 }_G.TestAnim = TestAnim
 
+function chatfunc(Message, Color)
+              local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = Message,[4] = Color}}
+  -- ONLY WHITE AND RED WORK RN, GOTTA FIGURE OUT THE OTHER COLORS 
+            Remotes.Events:FireServer(unpack(ChatTable))
+end
+
 Mouse.KeyDown:Connect(function(key)
     if waitBool == true then
         if key == "c" then
@@ -197,8 +203,7 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "v" then
             waitBool = false
-            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "THWACK",[4] = Color3.new(1,1,1)}}
-            Remotes.Events:FireServer(unpack(ChatTable))
+Chatfunc("THWACK",Color3.new(1,0,0))
             local AnimInstance = Instance.new("Animation", Humanoid)
             AnimInstance.AnimationId = "rbxassetid://9073577387"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
@@ -249,8 +254,7 @@ Mouse.KeyDown:Connect(function(key)
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(1)
-            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "UPPERCUT",[4] = Color3.new(1,1,1)}}
-            Remotes.Events:FireServer(unpack(ChatTable))
+Chatfunc("UPPERCUT",Color3.new(1,0,0))
             local OldDamage = CCS.Damage
             local OldType = CCS.Type
             local OldVelocity = CCS.Velocity
@@ -297,8 +301,7 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "t" then
             waitBool = false
-            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "Trolled!",[4] = Color3.new(1,1,1)}}
-            Remotes.Events:FireServer(unpack(ChatTable))
+Chatfunc("Trolled!",Color3.new(1,1,1))
             local AnimInstance = Instance.new("Animation", Humanoid)
         
             AnimInstance.AnimationId = "rbxassetid://7813916666"
