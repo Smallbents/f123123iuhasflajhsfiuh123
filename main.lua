@@ -55,7 +55,7 @@ local Anims = {
 local Damages = {
     Thwack = {10,"Knockback",40,"HeavyHitEffect", "ShieldBreak", "Knockback1"},
     Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
-    Barrage = {0,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
+    Barrage = {5,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
     BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
 } _G.AttackSettings = Damages
 
