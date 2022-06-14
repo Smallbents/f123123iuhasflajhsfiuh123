@@ -24,7 +24,6 @@ local Karma = Character:WaitForChild("Karma")
 local GameMetatable = getrawmetatable(game)
 local NameCallMethod = GameMetatable.__namecall
 local Pass = getrenv()._G.Pass
-local Mouse = Player:GetMouse()
 local waitBool = true
 local RunspeedBypass = Instance.new("BoolValue")
 local Face = Character.Head:FindFirstChild("face")
@@ -50,7 +49,7 @@ local Anims = {
     Run = "6998116360",
     Walk = "6373899601",
     Jump = "8100288787",
-    Block = "7813916666",
+    Block = "7817084729",
 } _G.AnimSettings = Anims
 
 if Face then
@@ -59,7 +58,7 @@ end
 
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
+HateArm:Destroy();HeartLocket:Destroy()--[[;Knife:Destroy()]];FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
 Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
 Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxassetid://"..Anims.Run
 Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
@@ -102,7 +101,6 @@ function Chatfunc(Message, Color)
     local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = Message,[4] = Color3.new(Color[1],Color[2],Color[3])}}
     Remotes.Events:FireServer(unpack(ChatTable))
 end
--- USE THIS: Chatfunc("gaming",{1,0,0})
 
 function DamageEvent(table)
     local OldDamage = CCS.Damage
@@ -229,9 +227,11 @@ local Damages = {
     },
 } _G.AttackSettings = Damages
 
-Mouse.KeyDown:Connect(function(key)
-    if waitBool == true then
-        if key == "c" then
+Uis.InputBegan:Connect(function(Input)
+  if Input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+  key = Input.KeyCode
+  if waitBool == true then
+        if key == Enum.KeyCode.C then -- Barrage
             waitBool = false
             local anim = LoadAttackAnim(7019288804, 0.5)
             wait(0.5)
@@ -244,7 +244,7 @@ Mouse.KeyDown:Connect(function(key)
             DestroyAnim(anim[1])
             waitBool = true
         end
-        if key == "v" then
+        if key == Enum.KeyCode.V then -- Thwack
             waitBool = false
             Chatfunc("THWACK",{1,0,0})
             local anim = LoadAttackAnim(9073577387, 1.5)
@@ -252,7 +252,7 @@ Mouse.KeyDown:Connect(function(key)
             DestroyAnim(anim[1])
             waitBool = true
         end
-        if key == "x" then
+        if key == Enum.KeyCode.X then -- Uppercut
             waitBool = false
             Chatfunc("UPPERCUT",{1,0,0})
             local anim = LoadAttackAnim(9553554972, 1)
@@ -261,7 +261,7 @@ Mouse.KeyDown:Connect(function(key)
             DestroyAnim(anim[1])
             waitBool = true
         end
-        if key == "b" then
+        if key == Enum.KeyCode.B then -- TestAnim
             waitBool = false
             local anim = LoadAttackAnim(tostring(TestAnim.TestingAnimation), tonumber(TestAnim.Speed))
             wait(5)
@@ -269,18 +269,19 @@ Mouse.KeyDown:Connect(function(key)
             DestroyAnim(anim[1])
             waitBool = true
         end
-        if key == "t" then
+        if key == Enum.KeyCode.T then -- Trolled
             waitBool = false
             Chatfunc("Trolled!",{1,1,1})
-            local anim = LoadAttackAnim(7813916666, 1.25)
+            local anim = LoadAttackAnim(7813916666, 1.5)
             waitBool = true
         end
-        if key == "p" then
+        if key == Enum.KeyCode.F5 then -- Rejoin
             local teleportToPlace = Services.TeleportService
             teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
         end
-        if key == "r" then
+        if key == Enum.KeyCode.R then -- Teleport
             if Backpack:WaitForChild("Main").LockOnScript.LockOn.Value == nil then
+                local Mouse = Player:GetMouse()
                 local cfr = Mouse.Hit
                 Character:SetPrimaryPartCFrame(cfr * CFrame.new(0, 2, 0))
             else
