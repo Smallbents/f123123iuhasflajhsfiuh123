@@ -71,7 +71,6 @@ Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxasseti
 Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
 Backpack:WaitForChild("Main").CharaMoves.Animations.Jump.AnimationId = "rbxassetid://"..Anims.Jump
 Backpack:WaitForChild("Main").CharaMoves.Animations.Block.AnimationId = "rbxassetid://"..Anims.Block
-Backpack:WaitForChild("Main").CharaMoves.Animations.Block.Looped = True
 wait(1)
 -- BackPack Duplication
 local module
