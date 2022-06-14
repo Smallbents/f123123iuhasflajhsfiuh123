@@ -253,7 +253,7 @@ Mouse.KeyDown:Connect(function(key)
             waitBool = false
             Chatfunc("THWACK",{1,0,0})
             LoadAttackAnim(9073577387, 1.5)
-            Damages.Thwack = {
+            _G.Damages.Thwack = {
                 40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
                 "Knockback", -- Attack Type [Knockback, Normal]
                 40, -- Velocity [Max 200]
