@@ -60,7 +60,7 @@ local Anims = {
 } _G.AnimSettings = Anims
 
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
-Character.Head.face:remove()
+Character.Head:WaitForChild("face",1):remove()
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
 Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
