@@ -1,0 +1,304 @@
+local Services = setmetatable({},{
+	__index=function(self,Name)
+		local Service = game:GetService(Name)
+		rawset(self,Name,Service)
+		return Service
+	end,
+})
+
+local Players = Services.Players
+local Player = Players.LocalPlayer
+local PlayerGui = Player.PlayerGui; PlayerGui.CharacterSelection.Character.Value = "Chara"; wait(1)
+local Character = Player.Character or Player.CharacterAdded:Wait(); Character.Head:WaitForChild("HealthBar"):Destroy()
+local Humanoid = Character.Humanoid
+local Uis = Services.UserInputService
+local Remotes = Services.ReplicatedStorage.Remotes
+local Backpack = Player:WaitForChild("Backpack")
+local ClickAnimations = Backpack:WaitForChild("Main"):WaitForChild("CharaMoves"):WaitForChild("ModuleScript"):WaitForChild("Animations").BladesCombat
+local Knife = Character:WaitForChild("RealKnife")
+local HateArm = Character:WaitForChild("HateArm")
+local HeartLocket = Character:WaitForChild("HeartLocket")
+local FullHateMode = Character:WaitForChild("FullHateMode")
+local HateMode = Character:WaitForChild("HateMode")
+local Karma = Character:WaitForChild("Karma")
+local GameMetatable = getrawmetatable(game)
+local NameCallMethod = GameMetatable.__namecall
+local Pass = getrenv()._G.Pass
+local Mouse = Player:GetMouse()
+local waitBool = true
+local RunspeedBypass = Instance.new("BoolValue")
+
+local CCS = {
+    HitTime = 1,
+    HitEffect = "HeavyHitEffect",
+    Damage = 10, -- max 40 For knockback, max 10 for normal hits
+    Type = "Normal", -- Can only be Knockback or Normal
+    Velocity = 15,
+    Sound = "Punch2",
+    HurtAnimation = "KnockUp"
+}; _G.ClickComboSettings = CCS
+
+local Anims = {
+    Hit1 = "5776230796",
+    Hit2 = "5776233108",
+    Hit3 = "5776230796",
+    Hit4 = "5776233108",
+    Hit5 = "5776230796",
+    Hit6 = "5776243290",
+    Idle = "8193912867",
+    Run = "6998116360",
+    Walk = "6373899601",
+    Jump = "8100288787",
+    Block = "7813916666",
+} _G.AnimSettings = Anims
+
+local Damages = {
+    Thwack = {10,"Knockback",40,"HeavyHitEffect", "ShieldBreak", "Knockback1"},
+    Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
+    Barrage = {0,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
+    BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
+} _G.AttackSettings = Damages
+
+Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
+Character.Head.face:remove()
+Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
+Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
+Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxassetid://"..Anims.Run
+Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
+Backpack:WaitForChild("Main").CharaMoves.Animations.Jump.AnimationId = "rbxassetid://"..Anims.Jump
+Backpack:WaitForChild("Main").CharaMoves.Animations.Block.AnimationId = "rbxassetid://"..Anims.Block
+wait(1)
+-- BackPack Duplication
+local module
+local modulelocation
+original = Backpack:WaitForChild("Main")
+clone = Backpack:WaitForChild("Main"):Clone()
+for _,v in pairs(original:GetDescendants()) do if v.Name == 'ModuleScript' then module = v modulelocation = v.Parent.Name end end
+for _,v in pairs(clone:GetDescendants()) do if v.Name == 'ModuleScript' then v:Destroy() end end
+for _,v in pairs(clone:GetDescendants()) do if v.Name == modulelocation then module.Parent = v end end
+for _,v in pairs(PlayerGui.UI.Ui:GetChildren()) do er = string.lower(v.Name) if string.match(er,'move') then originalm = v clonem = v:Clone() end end
+for _,v in pairs(PlayerGui:GetChildren()) do er = string.lower(v.Name) if string.find(er,'indicator') then clonem1 = v:Clone() originalm1 = v end end
+for _,v in pairs(clone:GetDescendants()) do if v.Name == 'Extra' then eg = v end end
+clonem1.Parent = eg
+clonem.Parent = eg
+originalm:Destroy()
+originalm1:Destroy()
+clone.Parent = Backpack
+wait()
+original:Destroy()
+-- GodMode Shit
+local v1 = {[1] = getrenv()._G.Pass,[2] = "Damage",[3] = math.huge,[4] = Character}
+Remotes.Events:FireServer(v1)
+Humanoid:GetPropertyChangedSignal("Health"):Connect(function() if Humanoid.Health == 0 then Humanoid.Health = 1 end end)
+RunspeedBypass.Name = "Battling";RunspeedBypass.Parent = Character;wait(0.3);Backpack.Main.RunSpeed.Value = 100
+RunspeedBypass.Name = "Battling";RunspeedBypass.Parent = Character;wait(0.3);Backpack.Main.WalkSpeed.Value = 10
+Character.Head.Voice.SoundId = "rbxassetid://7006511900" -- Sound of your typwriter effect text [Doesn't replicate]
+ClickAnimations.Light1.AnimationId = "rbxassetid://"..Anims.Hit1
+ClickAnimations.Light2.AnimationId = "rbxassetid://"..Anims.Hit2
+ClickAnimations.Light3.AnimationId = "rbxassetid://"..Anims.Hit3
+ClickAnimations.Light4.AnimationId = "rbxassetid://"..Anims.Hit4
+ClickAnimations.Light5.AnimationId = "rbxassetid://"..Anims.Hit5
+ClickAnimations.Light6.AnimationId = "rbxassetid://"..Anims.Hit6
+
+
+
+spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+
+setreadonly(GameMetatable, false)
+GameMetatable.__namecall =
+    newcclosure(
+    function(name, ...)
+        local tabs = {...}
+        if getnamecallmethod() == "InvokeServer" and tostring(name) == "Damage" then
+            tabs[3]["HitTime"] = CCS.HitTime
+            tabs[3]["HitEffect"] = CCS.HitEffect
+            tabs[3]["Damage"] = CCS.Damage
+            tabs[3]["Type"] = CCS.Type
+            tabs[3]["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[CCS.HurtAnimation]
+            tabs[3]["Sound"] = Services.ReplicatedStorage.Sounds[CCS.Sound]
+            tabs[3]["Velocity"] = Character.HumanoidRootPart.CFrame.LookVector * CCS.Velocity
+        end
+        return NameCallMethod(name, unpack(tabs))
+    end)
+setreadonly(GameMetatable, true)
+
+TestAnim = {
+    TestingAnimation = "7013079038",
+    Speed = 1
+}_G.TestAnim = TestAnim
+
+Mouse.KeyDown:Connect(function(key)
+    if waitBool == true then
+        if key == "c" then
+            waitBool = false
+            local AnimInstance = Instance.new("Animation", Humanoid)
+            AnimInstance.AnimationId = "rbxassetid://7019288804"
+            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+            LoadAnim:Play()
+            LoadAnim:AdjustSpeed(0.5)
+            local OldDamage = CCS.Damage
+            local OldType = CCS.Type
+            local OldVelocity = CCS.Velocity
+            local OldHitEffect = CCS.HitEffect
+            CCS.Damage = Damages.Barrage[1]
+            CCS.Type = Damages.Barrage[2]
+            CCS.Velocity = Damages.Barrage[3]
+            CCS.HitEffect = Damages.Barrage[4]
+            local Barrage = {
+                [1] = Pass,
+                [2] = Backpack.Main.LockOnScript.LockOn.Value,
+                [3] = {
+                    ["HitTime"] = 1, 
+                    ["Type"] = "Knockback",
+                    ["HitEffect"] = "KnifeHitEffect", 
+                    ["CombatInv"] = true,
+                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Barrage[6]], 
+                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.Barrage[5]],
+                    ["Damage"] = 10
+                }
+            }
+            local BarrageFin = {
+                [1] = Pass,
+                [2] = Backpack.Main.LockOnScript.LockOn.Value,
+                [3] = {
+                    ["HitTime"] = 1, 
+                    ["Type"] = "Knockback",
+                    ["HitEffect"] = "KnifeHitEffect", 
+                    ["CombatInv"] = true,
+                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.BarrageFin[6]], 
+                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.BarrageFin[5]],
+                    ["Damage"] = 10
+                }
+            }
+            pcall(function()
+                wait(0.5)
+                for i=1,17 do
+                    Remotes.Damage:InvokeServer(unpack(Barrage))
+                end
+                CCS.Damage = Damages.BarrageFin[1]
+                CCS.Type = Damages.BarrageFin[2]
+                CCS.Velocity = Damages.BarrageFin[3]
+                CCS.HitEffect = Damages.BarrageFin[4]
+                wait(1.2)
+                Remotes.Damage:InvokeServer(unpack(BarrageFin))
+            end)
+            CCS.Damage = OldDamage
+            CCS.Type = OldType
+            CCS.Velocity = OldVelocity
+            CCS.HitEffect = OldHitEffect
+            wait(2)
+            AnimInstance:Destroy()
+            waitBool = true
+        end
+        if key == "v" then
+            waitBool = false
+            Players:Chat(("THWACK"))
+            local AnimInstance = Instance.new("Animation", Humanoid)
+            AnimInstance.AnimationId = "rbxassetid://9073577387"
+            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+            LoadAnim:Play()
+            LoadAnim:AdjustSpeed(1)
+            local OldDamage = CCS.Damage
+            local OldType = CCS.Type
+            local OldVelocity = CCS.Velocity
+            local OldHitEffect = CCS.HitEffect
+            local OldHurtAnimation = CCS.HurtAnimation
+            local OldSound = CCS.Sound
+            CCS.Damage = Damages.Thwack[1]
+            CCS.Type = Damages.Thwack[2]
+            CCS.Velocity = Damages.Thwack[3]
+            CCS.HitEffect = Damages.Thwack[4]
+            CCS.Sound = Damages.Thwack[5]
+            CCS.HurtAnimation = Damages.Thwack[6]
+            local args = {
+                [1] = Pass,
+                [2] = Backpack.Main.LockOnScript.LockOn.Value,
+                [3] = {
+                    ["HitTime"] = 1, 
+                    ["Type"] = "Knockback",
+                    ["HitEffect"] = "KnifeHitEffect", 
+                    ["CombatInv"] = true,
+                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"], 
+                    ["Sound"] = Services.ReplicatedStorage.Sounds["ShieldBreak"],
+                    ["Damage"] = 10
+                }
+            }
+            pcall(function()
+                Remotes.Damage:InvokeServer(unpack(args))
+            end)
+            CCS.Damage = OldDamage
+            CCS.Type = OldType
+            CCS.Velocity = OldVelocity
+            CCS.HitEffect = OldHitEffect
+            CCS.Sound = OldSound
+            CCS.HurtAnimation = OldHurtAnimation
+            wait()
+            AnimInstance:Destroy()
+            waitBool = true
+        end
+        if key == "x" then
+            waitBool = false
+            local AnimInstance = Instance.new("Animation", Humanoid)
+            AnimInstance.AnimationId = "rbxassetid://9553554972"
+            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+            LoadAnim:Play()
+            LoadAnim:AdjustSpeed(1)
+            Players:Chat(("UPPERCUT"))
+            local OldDamage = CCS.Damage
+            local OldType = CCS.Type
+            local OldVelocity = CCS.Velocity
+            local OldHitEffect = CCS.HitEffect
+            CCS.Damage = Damages.Uppercut[1]
+            CCS.Type = Damages.Uppercut[2]
+            CCS.Velocity = Damages.Uppercut[3]
+            CCS.HitEffect = Damages.Uppercut[4]
+            local args = {
+                [1] = Pass,
+                [2] = Backpack.Main.LockOnScript.LockOn.Value,
+                [3] = {
+                    ["HitTime"] = 1, 
+                    ["Type"] = "Knockback",
+                    ["HitEffect"] = "KnifeHitEffect", 
+                    ["CombatInv"] = true,
+                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Uppercut[6]], 
+                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.Uppercut[5]],
+                    ["Damage"] = 10
+                }
+            }
+            pcall(function()
+                Remotes.Damage:InvokeServer(unpack(args))
+            end)
+            CCS.Damage = OldDamage
+            CCS.Type = OldType
+            CCS.Velocity = OldVelocity
+            CCS.HitEffect = OldHitEffect
+            wait(1)
+            AnimInstance:Destroy()
+            waitBool = true
+        end
+        if key == "b" then
+            waitBool = false
+            local AnimInstance = Instance.new("Animation", Humanoid)
+            AnimInstance.AnimationId = "rbxassetid://"..TestAnim.TestingAnimation
+            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+            LoadAnim:Play()
+            LoadAnim:AdjustSpeed(TestAnim.Speed)
+            wait(5)
+            AnimInstance:Destroy()
+            waitBool = true
+        end
+        if key == "r" then
+            if Backpack:WaitForChild("Main").LockOnScript.LockOn.Value == nil then
+                local cfr = Mouse.Hit
+                Character:SetPrimaryPartCFrame(cfr * CFrame.new(0, 2, 0))
+            else
+                local Tcf = Backpack:WaitForChild("Main").LockOnScript.LockOn.Value:GetPrimaryPartCFrame()
+                Character:SetPrimaryPartCFrame(Tcf * CFrame.new(0, 0, -3))
+            end
+        end
+    end
+end)
