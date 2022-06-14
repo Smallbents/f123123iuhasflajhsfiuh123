@@ -292,7 +292,8 @@ Chatfunc("UPPERCUT",{1,0,0})
         if key == "b" then
             waitBool = false
             local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://"..TestAnim.TestingAnimation
+Chatfunc("Bastard",{1,0,0})
+        AnimInstance.AnimationId = "rbxassetid://"..TestAnim.TestingAnimation
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
