@@ -105,10 +105,10 @@ ClickAnimations.Light5.AnimationId = "rbxassetid://"..Anims.Hit5
 ClickAnimations.Light6.AnimationId = "rbxassetid://"..Anims.Hit6
 
 function Chatfunc(Message, Color)
-              local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = Message,[4] = Color}}
-  -- ONLY WHITE AND RED WORK RN, GOTTA FIGURE OUT THE OTHER COLORS 
-            Remotes.Events:FireServer(unpack(ChatTable))
+    local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = Message,[4] = Color3.new(Color[1],Color[2],Color[3])}}
+    Remotes.Events:FireServer(unpack(ChatTable))
 end
+-- USE THIS: Chatfunc("gaming",{1,0,0})
 
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
@@ -205,7 +205,7 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "v" then
             waitBool = false
-Chatfunc("THWACK",Color3.new(1,0,0))
+Chatfunc("THWACK",{1,0,0})
             local AnimInstance = Instance.new("Animation", Humanoid)
             AnimInstance.AnimationId = "rbxassetid://9073577387"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
@@ -256,7 +256,7 @@ Chatfunc("THWACK",Color3.new(1,0,0))
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(1)
-Chatfunc("UPPERCUT",Color3.new(1,0,0))
+Chatfunc("UPPERCUT",{1,0,0})
             local OldDamage = CCS.Damage
             local OldType = CCS.Type
             local OldVelocity = CCS.Velocity
@@ -303,7 +303,7 @@ Chatfunc("UPPERCUT",Color3.new(1,0,0))
         end
         if key == "t" then
             waitBool = false
-Chatfunc("Trolled!",Color3.new(1,1,1))
+Chatfunc("Trolled!",{1,1,1})
             local AnimInstance = Instance.new("Animation", Humanoid)
         
             AnimInstance.AnimationId = "rbxassetid://7813916666"
