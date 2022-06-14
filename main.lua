@@ -40,7 +40,6 @@ local CCS = {
 }; _G.ClickComboSettings = CCS
 
 local Damages = {
-    Thwack = {40,"Knockback",40,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
     Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
     Barrage = {10,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
     BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
@@ -254,6 +253,14 @@ Mouse.KeyDown:Connect(function(key)
             waitBool = false
             Chatfunc("THWACK",{1,0,0})
             LoadAttackAnim(9073577387, 1.5)
+            Damages.Thwack = {
+                40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+                "Knockback", -- Attack Type [Knockback, Normal]
+                40, -- Velocity [Max 200]
+                "HeavyHitEffect", -- HitEffect
+                "ShieldBreak", -- HitSound
+                "KnockUp" -- HurtAnimation
+            }
             DamageEvent(Damages.Thwack)
             waitBool = true
         end
