@@ -229,6 +229,7 @@ local Damages = {
 
 Uis.InputBegan:Connect(function(Input)
   if Input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+  if Uis:GetFocusedTextBox() then return end
   key = Input.KeyCode
   if waitBool == true then
         if key == Enum.KeyCode.C then -- Barrage
