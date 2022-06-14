@@ -27,7 +27,7 @@ local Pass = getrenv()._G.Pass
 local Mouse = Player:GetMouse()
 local waitBool = true
 local RunspeedBypass = Instance.new("BoolValue")
---local Face = Character.Head:WaitForChild("face",1)
+local Face = Character.Head:FindFirstChild("face")
 
 local CCS = {
     HitTime = 1,
@@ -59,9 +59,9 @@ local Anims = {
     Jump = "8100288787",
     Block = "7813916666",
 } _G.AnimSettings = Anims
---if Face then
---    Face:remove()
---end
+if Face then
+    Face:remove()
+end
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
