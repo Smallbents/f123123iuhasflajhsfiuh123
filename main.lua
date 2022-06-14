@@ -104,8 +104,6 @@ ClickAnimations.Light4.AnimationId = "rbxassetid://"..Anims.Hit4
 ClickAnimations.Light5.AnimationId = "rbxassetid://"..Anims.Hit5
 ClickAnimations.Light6.AnimationId = "rbxassetid://"..Anims.Hit6
 
-
-
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
@@ -304,7 +302,7 @@ Mouse.KeyDown:Connect(function(key)
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
-            wait(2)
+            wait()
             LoadAnim:Stop()
             AnimInstance:Destroy()
             waitBool = true
