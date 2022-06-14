@@ -34,22 +34,22 @@ local CCS = {
     Damage = 10, -- max 40 For knockback, max 10 for normal hits
     Type = "Normal", -- Can only be Knockback or Normal
     Velocity = 15,
-    Sound = "Punch2",
-    HurtAnimation = "KnockUp"
+    Sound = Services.ReplicatedStorage.Sounds["Punch2"],
+    HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["KnockUp"]
 }; _G.ClickComboSettings = CCS
 
 local Anims = {
-    Hit1 = "5776230796",
-    Hit2 = "5776233108",
-    Hit3 = "5776230796",
-    Hit4 = "5776233108",
-    Hit5 = "5776230796",
-    Hit6 = "5776243290",
-    Idle = "8193912867",
-    Run = "6998116360",
-    Walk = "6373899601",
-    Jump = "8100288787",
-    Block = "7813916666",
+    Hit1 = "4689503513",
+    Hit2 = "4689503513",
+    Hit3 = "4689503513",
+    Hit4 = "4689503513",
+    Hit5 = "4689531984",
+    Hit6 = "3201755772",
+    Idle = "4900761581",
+    Run = "4576074471",
+    Walk = "4370512420",
+    Jump = "4087647775",
+    Block = "6994379430",
 } _G.AnimSettings = Anims
 
 local Damages = {
@@ -104,9 +104,9 @@ ClickAnimations.Light6.AnimationId = "rbxassetid://"..Anims.Hit6
 
 
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
---spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
---spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
---spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 
 setreadonly(GameMetatable, false)
 GameMetatable.__namecall =
@@ -118,8 +118,8 @@ GameMetatable.__namecall =
             tabs[3]["HitEffect"] = CCS.HitEffect
             tabs[3]["Damage"] = CCS.Damage
             tabs[3]["Type"] = CCS.Type
-            tabs[3]["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[CCS.HurtAnimation]
-            tabs[3]["Sound"] = Services.ReplicatedStorage.Sounds[CCS.Sound]
+            tabs[3]["HurtAnimation"] = CCS.HurtAnimation
+            tabs[3]["Sound"] = CCS.Sound
             tabs[3]["Velocity"] = Character.HumanoidRootPart.CFrame.LookVector * CCS.Velocity
         end
         return NameCallMethod(name, unpack(tabs))
@@ -127,7 +127,7 @@ GameMetatable.__namecall =
 setreadonly(GameMetatable, true)
 
 TestAnim = {
-    TestingAnimation = "7013079038",
+    TestingAnimation = "3722535516",
     Speed = 1
 }_G.TestAnim = TestAnim
 
@@ -212,8 +212,8 @@ Mouse.KeyDown:Connect(function(key)
             CCS.Type = Damages.Thwack[2]
             CCS.Velocity = Damages.Thwack[3]
             CCS.HitEffect = Damages.Thwack[4]
-            CCS.Sound = Damages.Thwack[5]
-            CCS.HurtAnimation = Damages.Thwack[6]
+            CCS.Sound = Services.ReplicatedStorage.Sounds[Damages.Thwack[5]]
+            CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Thwack[6]]
             local args = {
                 [1] = Pass,
                 [2] = Backpack.Main.LockOnScript.LockOn.Value,
@@ -288,6 +288,7 @@ Mouse.KeyDown:Connect(function(key)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
             wait(5)
+            LoadAnim:Stop()
             AnimInstance:Destroy()
             waitBool = true
         end
