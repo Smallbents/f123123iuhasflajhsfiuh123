@@ -39,41 +39,6 @@ local CCS = {
     HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"]
 }; _G.ClickComboSettings = CCS
 
-local Damages = {
-    Thwack = {
-        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
-        "Knockback", -- Attack Type [Knockback, Normal]
-        40, -- Velocity [Max 200]
-        "HeavyHitEffect", -- HitEffect
-        "ShieldBreak", -- HitSound
-        "KnockUp" -- HurtAnimation
-    },
-    Uppercut = {
-        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
-        "Knockback", -- Attack Type [Knockback, Normal]
-        70, -- Velocity [Max 200]
-        "HeavyHitEffect", -- HitEffect
-        "ShieldBreak", -- HitSound
-        "KnockUp" -- HurtAnimation
-    },
-    Barrage = {
-        10, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
-        "Normal", -- Attack Type [Knockback, Normal]
-        1, -- Velocity [Max 200]
-        "BoneHitEffect", -- HitEffect
-        "Punch2", -- HitSound
-        "Stunned" -- HurtAnimation
-    },
-    BarrageFin = {
-        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
-        "Knockback", -- Attack Type [Knockback, Normal]
-        100, -- Velocity [Max 200]
-        "HeavyHitEffect", -- HitEffect
-        "HateExplosion", -- HitSound
-        "Hurt"..tostring(math.random(1,3)) -- HurtAnimation
-    },
-} _G.AttackSettings = Damages
-
 local Anims = {
     Hit1 = "5776230796",
     Hit2 = "5776233108",
@@ -81,16 +46,17 @@ local Anims = {
     Hit4 = "5776233108",
     Hit5 = "5776230796",
     Hit6 = "5776243290",
-  
     Idle = "8193912867",
     Run = "6998116360",
     Walk = "6373899601",
     Jump = "8100288787",
     Block = "7813916666",
 } _G.AnimSettings = Anims
+
 if Face then
     Face:remove()
 end
+
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
@@ -181,14 +147,19 @@ function LoadAttackAnim(id, speed)
     local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
     LoadAnim:Play()
     LoadAnim:AdjustSpeed(speed)
-    AnimInstance:Destroy()
+    return {AnimInstance, LoadAnim}
+end
+function StopAnim(loadanim)
+    loadanim:Stop()
+end
+function DestroyAnim(animinstance)
+    animinstance:Destroy()
 end
 
-
-spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
-spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
-spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
-spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+--spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 
 setreadonly(GameMetatable, false)
 GameMetatable.__namecall =
@@ -208,149 +179,105 @@ GameMetatable.__namecall =
     end)
 setreadonly(GameMetatable, true)
 
+--[[
+C: Barrage
+V: Thwack
+X: Uppercut
+B: TestAnim
+T: Trolled
+P: Rejoin
+R: Teleport
+]]
+
 TestAnim = {
-    TestingAnimation = "3722535516",
+    TestingAnimation = 3722535516,
     Speed = 1
 }_G.TestAnim = TestAnim
 
-
+local Damages = {
+    Thwack = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        40, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "ShieldBreak", -- HitSound
+        "KnockUp" -- HurtAnimation
+    },
+    Uppercut = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        70, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "ShieldBreak", -- HitSound
+        "KnockUp" -- HurtAnimation
+    },
+    Barrage = {
+        10, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Normal", -- Attack Type [Knockback, Normal]
+        1, -- Velocity [Max 200]
+        "BoneHitEffect", -- HitEffect
+        "Punch2", -- HitSound
+        "Stunned" -- HurtAnimation
+    },
+    BarrageFin = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        100, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "HateExplosion", -- HitSound
+        "Hurt"..tostring(math.random(1,3)) -- HurtAnimation
+    },
+} _G.AttackSettings = Damages
 
 Mouse.KeyDown:Connect(function(key)
     if waitBool == true then
         if key == "c" then
             waitBool = false
-            local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://7019288804"
-            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
-            LoadAnim:Play()
-            LoadAnim:AdjustSpeed(0.5)
-            local OldDamage = CCS.Damage
-            local OldType = CCS.Type
-            local OldVelocity = CCS.Velocity
-            local OldHitEffect = CCS.HitEffect
-            CCS.Damage = Damages.Barrage[1]
-            CCS.Type = Damages.Barrage[2]
-            CCS.Velocity = Damages.Barrage[3]
-            CCS.HitEffect = Damages.Barrage[4]
-            local Barrage = {
-                [1] = Pass,
-                [2] = Backpack.Main.LockOnScript.LockOn.Value,
-                [3] = {
-                    ["HitTime"] = 1, 
-                    ["Type"] = "Knockback",
-                    ["HitEffect"] = "KnifeHitEffect", 
-                    ["CombatInv"] = true,
-                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Barrage[6]], 
-                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.Barrage[5]],
-                    ["Damage"] = 10
-                }
-            }
-            local BarrageFin = {
-                [1] = Pass,
-                [2] = Backpack.Main.LockOnScript.LockOn.Value,
-                [3] = {
-                    ["HitTime"] = 1, 
-                    ["Type"] = "Knockback",
-                    ["HitEffect"] = "KnifeHitEffect", 
-                    ["CombatInv"] = true,
-                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.BarrageFin[6]], 
-                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.BarrageFin[5]],
-                    ["Damage"] = 10
-                }
-            }
-            pcall(function()
-                wait(0.5)
-                for i=1,17 do
-                    Remotes.Damage:InvokeServer(unpack(Barrage))
-                end
-                CCS.Damage = Damages.BarrageFin[1]
-                CCS.Type = Damages.BarrageFin[2]
-                CCS.Velocity = Damages.BarrageFin[3]
-                CCS.HitEffect = Damages.BarrageFin[4]
-                wait(1.2)
-                Remotes.Damage:InvokeServer(unpack(BarrageFin))
-            end)
-            CCS.Damage = OldDamage
-            CCS.Type = OldType
-            CCS.Velocity = OldVelocity
-            CCS.HitEffect = OldHitEffect
+            local anim = LoadAttackAnim(7019288804, 0.5)
+            wait(0.5)
+            for i=1,17 do
+                DamageEvent(Damages.Barrage)
+            end
+            wait(1.2)
+            DamageEvent(Damages.BarrageFin)
             wait(2)
-            AnimInstance:Destroy()
+            DestroyAnim(anim[1])
             waitBool = true
         end
         if key == "v" then
             waitBool = false
             Chatfunc("THWACK",{1,0,0})
-            LoadAttackAnim(9073577387, 1.5)
+            local anim = LoadAttackAnim(9073577387, 1.5)
             DamageEvent(Damages.Thwack)
+            DestroyAnim(anim[1])
             waitBool = true
         end
         if key == "x" then
             waitBool = false
             Chatfunc("UPPERCUT",{1,0,0})
-            local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://9553554972"
-            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
-            LoadAnim:Play()
-            LoadAnim:AdjustSpeed(1)
-            local OldDamage = CCS.Damage
-            local OldType = CCS.Type
-            local OldVelocity = CCS.Velocity
-            local OldHitEffect = CCS.HitEffect
-            CCS.Damage = Damages.Uppercut[1]
-            CCS.Type = Damages.Uppercut[2]
-            CCS.Velocity = Damages.Uppercut[3]
-            CCS.HitEffect = Damages.Uppercut[4]
-            local args = {
-                [1] = Pass,
-                [2] = Backpack.Main.LockOnScript.LockOn.Value,
-                [3] = {
-                    ["HitTime"] = 1, 
-                    ["Type"] = "Knockback",
-                    ["HitEffect"] = "KnifeHitEffect", 
-                    ["CombatInv"] = true,
-                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Uppercut[6]], 
-                    ["Sound"] = Services.ReplicatedStorage.Sounds[Damages.Uppercut[5]],
-                    ["Damage"] = 10
-                }
-            }
-            pcall(function()
-                Remotes.Damage:InvokeServer(unpack(args))
-            end)
-            CCS.Damage = OldDamage
-            CCS.Type = OldType
-            CCS.Velocity = OldVelocity
-            CCS.HitEffect = OldHitEffect
+            local anim = LoadAttackAnim(9553554972, 1)
+            DamageEvent(Damages.Uppercut)
             wait(1)
-            AnimInstance:Destroy()
+            DestroyAnim(anim[1])
             waitBool = true
         end
         if key == "b" then
             waitBool = false
-            local AnimInstance = Instance.new("Animation", Humanoid)
-
-        AnimInstance.AnimationId = "rbxassetid://"..TestAnim.TestingAnimation
-            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
-            LoadAnim:Play()
-            LoadAnim:AdjustSpeed(TestAnim.Speed)
+            local anim = LoadAttackAnim(tostring(TestAnim.TestingAnimation), tonumber(TestAnim.Speed))
             wait(5)
-            LoadAnim:Stop()
-            AnimInstance:Destroy()
+            StopAnim(anim[2])
+            DestroyAnim(anim[1])
             waitBool = true
         end
         if key == "t" then
             waitBool = false
             Chatfunc("Trolled!",{1,1,1})
-            local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://7813916666"
-            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
-            LoadAnim:Play()
-           LoadAnim:AdjustSpeed(1.25)
+            local anim = LoadAttackAnim(7813916666, 1.25)
             waitBool = true
         end
         if key == "p" then
             local teleportToPlace = Services.TeleportService
-		        teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
+            teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
         end
         if key == "r" then
             if Backpack:WaitForChild("Main").LockOnScript.LockOn.Value == nil then
