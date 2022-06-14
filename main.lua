@@ -302,7 +302,7 @@ Mouse.KeyDown:Connect(function(key)
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
-            wait()
+            wait(1.5)
             LoadAnim:Stop()
             AnimInstance:Destroy()
             waitBool = true
