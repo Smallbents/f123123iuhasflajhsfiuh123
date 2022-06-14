@@ -197,7 +197,8 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "v" then
             waitBool = false
-            Players:Chat(("THWACK"))
+            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "THWACK",[4] = Color3.new(1,1,1)}}
+            Remotes.Events:FireServer(unpack(ChatTable))
             local AnimInstance = Instance.new("Animation", Humanoid)
             AnimInstance.AnimationId = "rbxassetid://9073577387"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
@@ -248,7 +249,8 @@ Mouse.KeyDown:Connect(function(key)
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(1)
-            Players:Chat(("UPPERCUT"))
+            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "UPPERCUT",[4] = Color3.new(1,1,1)}}
+            Remotes.Events:FireServer(unpack(ChatTable))
             local OldDamage = CCS.Damage
             local OldType = CCS.Type
             local OldVelocity = CCS.Velocity
@@ -295,7 +297,8 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "t" then
             waitBool = false
-        Players:Chat(("trolled!"))
+            local ChatTable = {[1] = {[1] = Pass,[2] = "Chatted",[3] = "Trolled!",[4] = Color3.new(1,1,1)}}
+            Remotes.Events:FireServer(unpack(ChatTable))
             local AnimInstance = Instance.new("Animation", Humanoid)
         
             AnimInstance.AnimationId = "rbxassetid://7813916666"
