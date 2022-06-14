@@ -210,7 +210,7 @@ Chatfunc("THWACK",{1,0,0})
             AnimInstance.AnimationId = "rbxassetid://9073577387"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
-            LoadAnim:AdjustSpeed(1)
+            LoadAnim:AdjustSpeed(1.5)
             local OldDamage = CCS.Damage
             local OldType = CCS.Type
             local OldVelocity = CCS.Velocity
