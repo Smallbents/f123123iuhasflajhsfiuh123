@@ -40,9 +40,38 @@ local CCS = {
 }; _G.ClickComboSettings = CCS
 
 local Damages = {
-    Uppercut = {40,"Knockback",70,"HeavyHitEffect", "ShieldBreak", "KnockUp"},
-    Barrage = {10,"Normal",1,"BoneHitEffect","Punch2","Stunned"},
-    BarrageFin = {40,"Knockback",100,"HeavyHitEffect","HateExplosion","Hurt"..tostring(math.random(1,3))},
+    Thwack = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        40, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "ShieldBreak", -- HitSound
+        "KnockUp" -- HurtAnimation
+    },
+    Uppercut = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        70, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "ShieldBreak", -- HitSound
+        "KnockUp" -- HurtAnimation
+    },
+    Barrage = {
+        10, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Normal", -- Attack Type [Knockback, Normal]
+        1, -- Velocity [Max 200]
+        "BoneHitEffect", -- HitEffect
+        "Punch2", -- HitSound
+        "Stunned" -- HurtAnimation
+    },
+    BarrageFin = {
+        40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
+        "Knockback", -- Attack Type [Knockback, Normal]
+        100, -- Velocity [Max 200]
+        "HeavyHitEffect", -- HitEffect
+        "HateExplosion", -- HitSound
+        "Hurt"..tostring(math.random(1,3)) -- HurtAnimation
+    },
 } _G.AttackSettings = Damages
 
 local Anims = {
@@ -109,19 +138,19 @@ function Chatfunc(Message, Color)
 end
 -- USE THIS: Chatfunc("gaming",{1,0,0})
 
-function DamageEvent(damagestable)
+function DamageEvent(table)
     local OldDamage = CCS.Damage
     local OldType = CCS.Type
     local OldVelocity = CCS.Velocity
     local OldHitEffect = CCS.HitEffect
     local OldHurtAnimation = CCS.HurtAnimation
     local OldSound = CCS.Sound
-    CCS.Damage = Damages.damagestable[1]
-    CCS.Type = Damages.damagestable[2]
-    CCS.Velocity = Damages.damagestable[3]
-    CCS.HitEffect = Damages.damagestable[4]
-    CCS.Sound = Services.ReplicatedStorage.Sounds[Damages.damagestable[5]]
-    CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.damagestable[6]]
+    CCS.Damage = table[1]
+    CCS.Type = table[2]
+    CCS.Velocity = table[3]
+    CCS.HitEffect = table[4]
+    CCS.Sound = Services.ReplicatedStorage.Sounds[table[5]]
+    CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[table[6]]
     local args = {
         [1] = Pass,
             [2] = Backpack.Main.LockOnScript.LockOn.Value,
@@ -253,14 +282,6 @@ Mouse.KeyDown:Connect(function(key)
             waitBool = false
             Chatfunc("THWACK",{1,0,0})
             LoadAttackAnim(9073577387, 1.5)
-            _G.Damages.Thwack = {
-                40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
-                "Knockback", -- Attack Type [Knockback, Normal]
-                40, -- Velocity [Max 200]
-                "HeavyHitEffect", -- HitEffect
-                "ShieldBreak", -- HitSound
-                "KnockUp" -- HurtAnimation
-            }
             DamageEvent(Damages.Thwack)
             waitBool = true
         end
