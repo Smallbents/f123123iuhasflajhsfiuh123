@@ -309,7 +309,7 @@ Chatfunc("Trolled!",{1,1,1})
             AnimInstance.AnimationId = "rbxassetid://7813916666"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
-           LoadAnim:AdjustSpeed(1)
+           LoadAnim:AdjustSpeed(1.25)
             waitBool = true
         end
         if key == "p" then
