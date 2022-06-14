@@ -81,6 +81,7 @@ Backpack:WaitForChild("Main").CharaMoves.Animations.Jump.AnimationId = "rbxasset
 Backpack:WaitForChild("Main").CharaMoves.Animations.Jump:AdjustSpeed(Anims.Jump_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Block.AnimationId = "rbxassetid://"..Anims.Block
 Backpack:WaitForChild("Main").CharaMoves.Animations.Block:AdjustSpeed(Anims.Block_Speed)
+Backpack:WaitForChild("Main").CharaMoves.Animations.Block.Looped = True
 wait(1)
 -- BackPack Duplication
 local module
@@ -301,6 +302,18 @@ Mouse.KeyDown:Connect(function(key)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
             wait(5)
+            LoadAnim:Stop()
+            AnimInstance:Destroy()
+            waitBool = true
+        end
+              if key == "t" then
+            waitBool = false
+            local AnimInstance = Instance.new("Animation", Humanoid)
+            AnimInstance.AnimationId = "rbxassetid://"
+            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+            LoadAnim:Play()
+            LoadAnim:AdjustSpeed(TestAnim.Speed)
+            wait(2)
             LoadAnim:Stop()
             AnimInstance:Destroy()
             waitBool = true
