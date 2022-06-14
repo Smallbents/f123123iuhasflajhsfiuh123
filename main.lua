@@ -306,10 +306,10 @@ Mouse.KeyDown:Connect(function(key)
             AnimInstance:Destroy()
             waitBool = true
         end
-              if key == "t" then
+        if key == "t" then
             waitBool = false
             local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://"
+            AnimInstance.AnimationId = "rbxassetid://7813916666"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(TestAnim.Speed)
