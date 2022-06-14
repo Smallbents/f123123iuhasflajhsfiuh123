@@ -110,6 +110,53 @@ function Chatfunc(Message, Color)
 end
 -- USE THIS: Chatfunc("gaming",{1,0,0})
 
+function DamageEvent(damagestable)
+    local OldDamage = CCS.Damage
+    local OldType = CCS.Type
+    local OldVelocity = CCS.Velocity
+    local OldHitEffect = CCS.HitEffect
+    local OldHurtAnimation = CCS.HurtAnimation
+    local OldSound = CCS.Sound
+    CCS.Damage = Damages.damagestable[1]
+    CCS.Type = Damages.damagestable[2]
+    CCS.Velocity = Damages.damagestable[3]
+    CCS.HitEffect = Damages.damagestable[4]
+    CCS.Sound = Services.ReplicatedStorage.Sounds[Damages.damagestable[5]]
+    CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.damagestable[6]]
+    local args = {
+        [1] = Pass,
+            [2] = Backpack.Main.LockOnScript.LockOn.Value,
+            [3] = {
+                ["HitTime"] = 1, 
+                ["Type"] = "Knockback",
+                ["HitEffect"] = "KnifeHitEffect", 
+                ["CombatInv"] = true,
+                ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"], 
+                ["Sound"] = Services.ReplicatedStorage.Sounds["ShieldBreak"],
+                ["Damage"] = 10
+            }
+        }
+    pcall(function()
+        Remotes.Damage:InvokeServer(unpack(args))
+    end)
+    CCS.Damage = OldDamage
+    CCS.Type = OldType
+    CCS.Velocity = OldVelocity
+    CCS.HitEffect = OldHitEffect
+    CCS.Sound = OldSound
+    CCS.HurtAnimation = OldHurtAnimation
+end
+
+function LoadAttackAnim(id, speed)
+    local AnimInstance = Instance.new("Animation", Humanoid)
+    AnimInstance.AnimationId = "rbxassetid://"..tostring(id)
+    local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
+    LoadAnim:Play()
+    LoadAnim:AdjustSpeed(speed)
+    AnimInstance:Destroy()
+end
+
+
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
@@ -205,58 +252,19 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "v" then
             waitBool = false
-Chatfunc("THWACK",{1,0,0})
-            local AnimInstance = Instance.new("Animation", Humanoid)
-            AnimInstance.AnimationId = "rbxassetid://9073577387"
-            local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
-            LoadAnim:Play()
-            LoadAnim:AdjustSpeed(1.5)
-            local OldDamage = CCS.Damage
-            local OldType = CCS.Type
-            local OldVelocity = CCS.Velocity
-            local OldHitEffect = CCS.HitEffect
-            local OldHurtAnimation = CCS.HurtAnimation
-            local OldSound = CCS.Sound
-            CCS.Damage = Damages.Thwack[1]
-            CCS.Type = Damages.Thwack[2]
-            CCS.Velocity = Damages.Thwack[3]
-            CCS.HitEffect = Damages.Thwack[4]
-            CCS.Sound = Services.ReplicatedStorage.Sounds[Damages.Thwack[5]]
-            CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[Damages.Thwack[6]]
-            local args = {
-                [1] = Pass,
-                [2] = Backpack.Main.LockOnScript.LockOn.Value,
-                [3] = {
-                    ["HitTime"] = 1, 
-                    ["Type"] = "Knockback",
-                    ["HitEffect"] = "KnifeHitEffect", 
-                    ["CombatInv"] = true,
-                    ["HurtAnimation"] = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"], 
-                    ["Sound"] = Services.ReplicatedStorage.Sounds["ShieldBreak"],
-                    ["Damage"] = 10
-                }
-            }
-            pcall(function()
-                Remotes.Damage:InvokeServer(unpack(args))
-            end)
-            CCS.Damage = OldDamage
-            CCS.Type = OldType
-            CCS.Velocity = OldVelocity
-            CCS.HitEffect = OldHitEffect
-            CCS.Sound = OldSound
-            CCS.HurtAnimation = OldHurtAnimation
-            wait()
-            AnimInstance:Destroy()
+            Chatfunc("THWACK",{1,0,0})
+            LoadAttackAnim(9073577387, 1.5)
+            DamageEvent(Damages.Thwack)
             waitBool = true
         end
         if key == "x" then
             waitBool = false
+            Chatfunc("UPPERCUT",{1,0,0})
             local AnimInstance = Instance.new("Animation", Humanoid)
             AnimInstance.AnimationId = "rbxassetid://9553554972"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
             LoadAnim:AdjustSpeed(1)
-Chatfunc("UPPERCUT",{1,0,0})
             local OldDamage = CCS.Damage
             local OldType = CCS.Type
             local OldVelocity = CCS.Velocity
@@ -292,7 +300,7 @@ Chatfunc("UPPERCUT",{1,0,0})
         if key == "b" then
             waitBool = false
             local AnimInstance = Instance.new("Animation", Humanoid)
-Chatfunc("Bastard",{1,0,0})
+
         AnimInstance.AnimationId = "rbxassetid://"..TestAnim.TestingAnimation
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
@@ -304,9 +312,8 @@ Chatfunc("Bastard",{1,0,0})
         end
         if key == "t" then
             waitBool = false
-Chatfunc("Trolled!",{1,1,1})
+            Chatfunc("Trolled!",{1,1,1})
             local AnimInstance = Instance.new("Animation", Humanoid)
-        
             AnimInstance.AnimationId = "rbxassetid://7813916666"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
