@@ -35,7 +35,7 @@ local CCS = {
     Type = "Normal", -- Can only be Knockback or Normal
     Velocity = 15,
     Sound = Services.ReplicatedStorage.Sounds["Punch2"],
-    HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["KnockUp"]
+    HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"]
 }; _G.ClickComboSettings = CCS
 
 local Anims = {
