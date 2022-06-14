@@ -292,6 +292,11 @@ Mouse.KeyDown:Connect(function(key)
             AnimInstance:Destroy()
             waitBool = true
         end
+             if key == "p" then
+local teleportToPlace = game:GetService("TeleportService")
+		teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)   
+
+        end
         if key == "r" then
             if Backpack:WaitForChild("Main").LockOnScript.LockOn.Value == nil then
                 local cfr = Mouse.Hit
