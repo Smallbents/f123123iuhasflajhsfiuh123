@@ -72,7 +72,6 @@ Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
 Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
-Backpack:WaitForChild("Main").CharaMoves.Animations.Idle:AdjustSpeed(Anims.Idle_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxassetid://"..Anims.Run
 Backpack:WaitForChild("Main").CharaMoves.Animations.Run:AdjustSpeed(Anims.Run_Speed)
 Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
