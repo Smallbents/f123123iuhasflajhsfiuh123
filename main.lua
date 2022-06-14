@@ -308,7 +308,9 @@ Mouse.KeyDown:Connect(function(key)
         end
         if key == "t" then
             waitBool = false
+        Players:Chat(("trolled!"))
             local AnimInstance = Instance.new("Animation", Humanoid)
+        
             AnimInstance.AnimationId = "rbxassetid://7813916666"
             local LoadAnim = Humanoid:LoadAnimation(AnimInstance)
             LoadAnim:Play()
