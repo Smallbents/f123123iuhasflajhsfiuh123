@@ -272,7 +272,7 @@ local Damages = {
         "Hurt"..tostring(math.random(1,3)) -- HurtAnimation
     },
 } _G.AttackSettings = Damages
-
+local dead = false
 Uis.InputBegan:Connect(function(Input)
   if Input.UserInputType ~= Enum.UserInputType.Keyboard then return end
   if Uis:GetFocusedTextBox() then return end
@@ -317,16 +317,16 @@ Uis.InputBegan:Connect(function(Input)
             waitBool = true
         end
         if key == Enum.KeyCode.G then -- dead moment
-            Chatfunc("bruh I'm Dead 💀",{1,1,1})
-        repeat
-          wait(1)
-          
-            waitBool = false
-            local anim = LoadAttackAnim(5776384951,1)
-        until key == Enum.KeyCode.G
-            StopAnim(anim[2])
+            
+if dead == false then
+          dead = true
+          Chatfunc("bruh I'm Dead 💀",{1,1,1}) 
+LoadAttackAnim(5776384951,1)
+
+        else dead = false
+                              StopAnim(anim[2])
             DestroyAnim(anim[1])
-            waitBool = true
+        end
         end
         if key == Enum.KeyCode.T then -- Trolled
             waitBool = false
