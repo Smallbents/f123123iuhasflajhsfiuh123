@@ -243,8 +243,8 @@ local Damages = {
         40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
         "Knockback", -- Attack Type [Knockback, Normal]
         40, -- Velocity [Max 200]
-        "HeavyHitEffect", -- HitEffect
-        "ShieldBreak", -- HitSound
+        "HeavyHitEffect", --w HitEffect
+        "BassDrop", -- HitSound
         "KnockUp" -- HurtAnimation
     },
     Uppercut = {
@@ -310,7 +310,7 @@ Uis.InputBegan:Connect(function(Input)
         end
         if key == Enum.KeyCode.B then -- TestAnim
             waitBool = false
-            local anim = LoadAttackAnim(tostring(TestAnim.TestingAnimation), tonumber(TestAnim.Speed))
+            local anim = LoadAttackAnim(tostring(_G.TestAnim.TestingAnimation), tonumber(_G.TestAnim.Speed))
             wait(5)
             StopAnim(anim[2])
             DestroyAnim(anim[1])
