@@ -316,6 +316,18 @@ Uis.InputBegan:Connect(function(Input)
             DestroyAnim(anim[1])
             waitBool = true
         end
+        if key == Enum.KeyCode.G then -- dead moment
+            Chatfunc("bruh I'm Dead 💀",{1,1,1})
+        repeat
+          wait(1)
+          
+            waitBool = false
+            local anim = LoadAttackAnim(5776384951,1)
+        until key == Enum.KeyCode.G
+            StopAnim(anim[2])
+            DestroyAnim(anim[1])
+            waitBool = true
+        end
         if key == Enum.KeyCode.T then -- Trolled
             waitBool = false
             Chatfunc("Trolled!",{1,1,1})
