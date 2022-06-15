@@ -14,7 +14,9 @@ local Humanoid = Character.Humanoid
 local Uis = Services.UserInputService
 local Remotes = Services.ReplicatedStorage.Remotes
 local Backpack = Player:WaitForChild("Backpack")
-local ClickAnimations = Backpack:WaitForChild("Main"):WaitForChild("CharaMoves"):WaitForChild("ModuleScript"):WaitForChild("Animations").BladesCombat
+local Main = Backpack:WaitForChild("Main")
+local CharaMoves = Main:WaitForChild("CharaMoves")
+local ClickAnimations = CharaMoves:WaitForChild("ModuleScript"):WaitForChild("Animations").BladesCombat
 local Knife = Character:WaitForChild("RealKnife")
 local HateArm = Character:WaitForChild("HateArm")
 local HeartLocket = Character:WaitForChild("HeartLocket")
@@ -27,6 +29,11 @@ local Pass = getrenv()._G.Pass
 local waitBool = true
 local RunspeedBypass = Instance.new("BoolValue")
 local Face = Character.Head:FindFirstChild("face")
+local animtracks = Humanoid:GetPlayingAnimationTracks()
+
+local Settings = {
+    Name = " [idk] ",
+}
 
 local CCS = {
     HitTime = 1,
@@ -36,6 +43,13 @@ local CCS = {
     Velocity = 15,
     Sound = Services.ReplicatedStorage.Sounds["Punch2"],
     HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"]
+    HitTimeFin = 1,
+    HitEffectFin = "HeavyHitEffect",
+    DamageFin = 40, -- max 40 For knockback, max 10 for normal hits
+    TypeFin = "Knockback", -- Can only be Knockback or Normal
+    VelocityFin = 60,
+    SoundFin = Services.ReplicatedStorage.Sounds["Punch2"],
+    HurtAnimationFin = Services.ReplicatedStorage.Animations.HurtAnimations["Stunned"]
 }; _G.ClickComboSettings = CCS
 
 local Anims = {
@@ -52,24 +66,21 @@ local Anims = {
     Block = "7817084729",
 } _G.AnimSettings = Anims
 
-if Face then
-    Face:remove()
-end
-
+if Face then Face:remove()end
 Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:Destroy()
 Services.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 HateArm:Destroy();HeartLocket:Destroy();Knife:Destroy();FullHateMode:Destroy();HateMode:Destroy();Karma:Destroy();Character:WaitForChild("ForceField"):Destroy();game.Workspace.ServerEffects.ServerCooldown:Destroy()
-Backpack:WaitForChild("Main").CharaMoves.Animations.Idle.AnimationId = "rbxassetid://"..Anims.Idle
-Backpack:WaitForChild("Main").CharaMoves.Animations.Run.AnimationId = "rbxassetid://"..Anims.Run
-Backpack:WaitForChild("Main").CharaMoves.Animations.Walk.AnimationId = "rbxassetid://"..Anims.Walk
-Backpack:WaitForChild("Main").CharaMoves.Animations.Jump.AnimationId = "rbxassetid://"..Anims.Jump
-Backpack:WaitForChild("Main").CharaMoves.Animations.Block.AnimationId = "rbxassetid://"..Anims.Block
-wait(2)
+CharaMoves:WaitForChild("Animations"):WaitForChild("Idle").AnimationId = "rbxassetid://"..Anims.Idle
+CharaMoves:WaitForChild("Animations"):WaitForChild("Run").AnimationId = "rbxassetid://"..Anims.Run
+CharaMoves:WaitForChild("Animations"):WaitForChild("Walk").AnimationId = "rbxassetid://"..Anims.Walk
+CharaMoves:WaitForChild("Animations"):WaitForChild("Jump").AnimationId = "rbxassetid://"..Anims.Jump
+CharaMoves:WaitForChild("Animations"):WaitForChild("Block").AnimationId = "rbxassetid://"..Anims.Block
 -- BackPack Duplication
+wait(2)
 local module
 local modulelocation
-original = Backpack:WaitForChild("Main")
-clone = Backpack:WaitForChild("Main"):Clone()
+original = Main
+clone = Main:Clone()
 for _,v in pairs(original:GetDescendants()) do if v.Name == 'ModuleScript' then module = v modulelocation = v.Parent.Name end end
 for _,v in pairs(clone:GetDescendants()) do if v.Name == 'ModuleScript' then v:Destroy() end end
 for _,v in pairs(clone:GetDescendants()) do if v.Name == modulelocation then module.Parent = v end end
@@ -158,6 +169,7 @@ end
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
+spawn(function()repeat wait() local animtracks = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks() for i,v in pairs(animtracks) do if v.Name == "Light6" then local OldDamage = CCS.Damage local OldType = CCS.Type local OldVelocity = CCS.Velocity local OldHitEffect = CCS.HitEffect local OldHurtAnimation = CCS.HurtAnimation local OldSound = CCS.Sound CCS.Damage = CCS.DamageFin CCS.Type = CCS.TypeFin CCS.Velocity = CCS.VelocityFin CCS.HitEffect = CCS.HitEffectFin CCS.Sound = Services.ReplicatedStorage.Sounds[CCS.SoundFin] CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[CCS.HurtAnimationFin] wait(1) CCS.Damage = OldDamage CCS.Type = OldType CCS.Velocity = OldVelocity CCS.HitEffect = OldHitEffect CCS.Sound = OldSound CCS.HurtAnimation = OldHurtAnimation end end until false end)
 
 setreadonly(GameMetatable, false)
 GameMetatable.__namecall =
@@ -273,10 +285,10 @@ Uis.InputBegan:Connect(function(Input)
         if key == Enum.KeyCode.T then -- Trolled
             waitBool = false
             Chatfunc("Trolled!",{1,1,1})
-            local anim = LoadAttackAnim(7813916666, 1.5)
+            local anim = LoadAttackAnim(7813916666, 1.25)
             waitBool = true
         end
-        if key == Enum.KeyCode.F5 then -- Rejoin
+        if key == Enum.KeyCode.KeypadOne then -- Rejoin
             local teleportToPlace = Services.TeleportService
             teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
         end
