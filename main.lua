@@ -169,7 +169,6 @@ end
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
 --spawn(function()repeat wait()for _,v in pairs(Character:GetChildren()) do if v.Name == 'DrainStamina' or v.Name == 'DrainSprint' or v.Name == 'Hit' or v.Name == 'Hitt' or v.Name == 'Damaged' or v.Name == 'Grounded' or v.Name == 'StayGrounded' or v.Name == 'KnockBack' or v.Name == 'Walled' then v:Destroy() end end until false end)
-spawn(function()repeat wait() local animtracks = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks() for i,v in pairs(animtracks) do if v.Name == "Light6" then local OldDamage = CCS.Damage local OldType = CCS.Type local OldVelocity = CCS.Velocity local OldHitEffect = CCS.HitEffect local OldHurtAnimation = CCS.HurtAnimation local OldSound = CCS.Sound CCS.Damage = CCS.DamageFin CCS.Type = CCS.TypeFin CCS.Velocity = CCS.VelocityFin CCS.HitEffect = CCS.HitEffectFin CCS.Sound = Services.ReplicatedStorage.Sounds[CCS.SoundFin] CCS.HurtAnimation = Services.ReplicatedStorage.Animations.HurtAnimations[CCS.HurtAnimationFin] wait(1) CCS.Damage = OldDamage CCS.Type = OldType CCS.Velocity = OldVelocity CCS.HitEffect = OldHitEffect CCS.Sound = OldSound CCS.HurtAnimation = OldHurtAnimation end end until false end)
 
 setreadonly(GameMetatable, false)
 GameMetatable.__namecall =
@@ -188,6 +187,41 @@ GameMetatable.__namecall =
         return NameCallMethod(name, unpack(tabs))
     end)
 setreadonly(GameMetatable, true)
+FinBool = true
+spawn(function()
+    repeat
+        wait()
+        if FinBool then
+            local animtracks = Humanoid:GetPlayingAnimationTracks()
+            for i,v in pairs(animtracks) do
+                if v.Name == "Light6" then
+                    FinBool = false
+                    local OldDamage = CCS.Damage
+                    local OldType = CCS.Type
+                    local OldVelocity = CCS.Velocity
+                    local OldHitEffect = CCS.HitEffect
+                    local OldHurtAnimation = CCS.HurtAnimation
+                    local OldSound = CCS.Sound
+                    CCS.Damage = CCS.DamageFin
+                    CCS.Type = CCS.TypeFin
+                    CCS.Velocity = CCS.VelocityFin
+                    CCS.HitEffect = CCS.HitEffectFin
+                    CCS.Sound = CCS.SoundFin
+                    CCS.HurtAnimation = CCS.HurtAnimationFin
+                    wait(2)
+                    CCS.Damage = OldDamage
+                    CCS.Type = OldType
+                    CCS.Velocity = OldVelocity
+                    CCS.HitEffect = OldHitEffect
+                    CCS.Sound = OldSound
+                    CCS.HurtAnimation = OldHurtAnimation
+                    FinBool = true
+                end
+            end
+        end
+    until false
+end)
+
 
 --[[
 C: Barrage
@@ -288,7 +322,7 @@ Uis.InputBegan:Connect(function(Input)
             local anim = LoadAttackAnim(7813916666, 1.25)
             waitBool = true
         end
-        if key == Enum.KeyCode.KeypadOne then -- Rejoin
+        if key == Enum.KeyCode.F5 then -- Rejoin
             local teleportToPlace = Services.TeleportService
             teleportToPlace:TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)   
         end
