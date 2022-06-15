@@ -316,20 +316,11 @@ Uis.InputBegan:Connect(function(Input)
             DestroyAnim(anim[1])
             waitBool = true
         end
-        if key == Enum.KeyCode.G then -- dead moment
-        		coroutine.wrap(function()
-local anim = LoadAttackAnim(5776384951,1)
+        if key == Enum.KeyCode.Y then -- dead moment
 
-Character.HumanoidRootPart.Anchored = true
-          dead = true
  Chatfunc("bruh I'm Dead 💀",{1,1,1}) 
-repeat wait() until key == Enum.KeyCode.G
-          Character.HumanoidRootPart.Anchored = false  
-          StopAnim(anim[2])
-            DestroyAnim(anim[1])
-          end
-        end)
-        end
+
+
         end
         if key == Enum.KeyCode.T then -- Trolled
             waitBool = false
