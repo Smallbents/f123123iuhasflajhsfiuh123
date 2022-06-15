@@ -5,7 +5,7 @@ local Services = setmetatable({},{
 		return Service
 	end,
 })
-
+Services.ReplicatedStorage.Remotes.Functions:InvokeServer({ getrenv()._G.Pass, "ChangeSetting", "MorphEnabled", false });
 local Players = Services.Players
 local Player = Players.LocalPlayer
 local PlayerGui = Player.PlayerGui; PlayerGui.CharacterSelection.Character.Value = "Chara"; wait(1)
@@ -229,7 +229,7 @@ V: Thwack
 X: Uppercut
 B: TestAnim
 T: Trolled
-P: Rejoin
+f5: Rejoin
 R: Teleport
 ]]
 
