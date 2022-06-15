@@ -317,17 +317,17 @@ Uis.InputBegan:Connect(function(Input)
             waitBool = true
         end
         if key == Enum.KeyCode.G then -- dead moment
-local anim = nil
+local anim = LoadAttackAnim(5776384951,1)
 if dead == false then
-           anim = LoadAttackAnim(5776384951,1)
-
+           
 Character.HumanoidRootPart.Anchored = true
           dead = true
  Chatfunc("bruh I'm Dead 💀",{1,1,1}) 
 
         else
           dead = false
-                              StopAnim(anim[2])
+          Character.HumanoidRootPart.Anchored = false  
+          StopAnim(anim[2])
             DestroyAnim(anim[1])
         end
         end
