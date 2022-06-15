@@ -242,7 +242,7 @@ local Damages = {
     Thwack = {
         40, -- Damage [Max 40 on Type: Knockback, Max 10 on Type: Normal]
         "Knockback", -- Attack Type [Knockback, Normal]
-        40, -- Velocity [Max 200]
+        200, -- Velocity [Max 200]
         "HeavyHitEffect", --w HitEffect
         "BassDrop", -- HitSound
         "KnockUp" -- HurtAnimation
