@@ -321,7 +321,7 @@ local anim = nil
 if dead == false then
            anim = LoadAttackAnim(5776384951,1)
 
-
+Character.HumanoidRootPart.Anchored = true
           dead = true
  Chatfunc("bruh I'm Dead 💀",{1,1,1}) 
 
